@@ -1,0 +1,78 @@
+##Importing libraries to use for analysis
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+%matplotlib inline
+
+##Importing data from https://data.gov.ie/dataset?theme=Housing
+
+may21 = pd.read_csv('Homelessness Report May 2021.csv')
+june21 = pd.read_csv('Homelessness Report June 2021.csv')
+aug21 = pd.read_csv('Homelessness Report August 2021.csv')
+sep21 = pd.read_csv('Homelessness Report September 2021.csv')
+april21 = pd.read_csv('Homelessness Report April 2021.csv')
+april20 = pd.read_csv('Homelessness Report April 2020.csv')
+april19 = pd.read_csv('Homelessness Report April 2019.csv')
+aug20 = pd.read_csv('Homelessness Report August 2020.csv')
+aug19 = pd.read_csv('Homelessness Report August 2019.csv')
+dec20 = pd.read_csv('Homelessness Report December 2020.csv')
+dec19 = pd.read_csv('Homelessness Report December 2019.csv')
+feb21 = pd.read_csv('Homelessness Report February 2021.csv')
+feb20 = pd.read_csv('Homelessness Report February 2021.csv')
+feb19 = pd.read_csv('Homelessness Report February 2019.csv')
+jan21 = pd.read_csv('Homelessness Report January 2021.csv')
+jan20 = pd.read_csv('Homelessness Report January 2020.csv')
+jan19 = pd.read_csv('Homelessness Report January 2019.csv')
+july20 = pd.read_csv('Homelessness Report July 2020.csv')
+july19 = pd.read_csv('Homelessness Report July 2019.csv')
+june20 = pd.read_csv('Homelessness Report June 2020.csv')
+june19 = pd.read_csv('Homelessness Report June 2019.csv')
+mar20 = pd.read_csv('Homelessness Report March 2020.csv')
+mar19 = pd.read_csv('Homelessness Report March 2019.csv')
+may20 = pd.read_csv('Homelessness Report May 2020.csv')
+may19 = pd.read_csv('Homelessness Report May 2019.csv')
+nov20 = pd.read_csv('Homelessness Report November 2020.csv')
+nov19 = pd.read_csv('Homelessness Report November 2019.csv')
+oct21 = pd.read_csv('Homelessness Report October 2021.csv')
+oct20 = pd.read_csv('Homelessness Report October 2020.csv')
+oct19 = pd.read_csv('Homelessness Report October 2019.csv')
+sep20 = pd.read_csv('Homelessness Report September 2020.csv')
+sep19 = pd.read_csv('Homelessness Report September 2019.csv')
+
+##Changing data types in order to analyze later
+
+##These first changes are for a column that are for string objects which are only found in these months
+
+feb20['Number of Adults in Families'] = feb20['Number of Adults in Families'].str.replace(',','').astype(float)
+oct21['Number of Adults in Families'] = oct21['Number of Adults in Families'].str.replace(',','').astype(float)
+sep21['Number of Adults in Families'] = sep21['Number of Adults in Families'].str.replace(',','').astype(float)
+aug21['Number of Adults in Families'] = aug21['Number of Adults in Families'].str.replace(',','').astype(float)
+may21['Number of Adults in Families'] = may21['Number of Adults in Families'].str.replace(',','').astype(float)
+april21['Number of Adults in Families'] = april21['Number of Adults in Families'].str.replace(',','').astype(float)
+feb21['Number of Adults in Families'] = feb21['Number of Adults in Families'].str.replace(',','').astype(float)
+
+##Concatenating these files to transform the data types. All of these files have the same columns as string objects. They are being transformed into floats for analysis
+toclean = pd.concat([jan21,jan19,feb21,feb20,feb19,mar19,april21,april19,may21,may19,june19,july19,aug21,aug19,sep21,sep19,oct21,oct19,nov19,dec19])
+
+##These files are already numeric, and ready to go.
+clean = pd.concat([jan20,mar20,april20,may20,june20,june21,july20,aug20,sep20,oct20,nov20,dec20])
+dec20['Number of Adults in Families'] = dec20['Number of Adults in Families'].str.replace(',','').astype(float)
+
+##Cleaning the data
+
+toclean['Total Adults'] = toclean['Total Adults'].str.replace(',','').astype(float)
+toclean['Male Adults'] = toclean['Male Adults'].str.replace(',','').astype(float)
+toclean['Female Adults'] = toclean['Female Adults'].str.replace(',','').astype(float)
+toclean['Adults Aged 25-44'] = toclean['Adults Aged 25-44'].str.replace(',','').astype(float)
+toclean['Adults Aged 45-64'] = toclean['Adults Aged 45-64'].str.replace(',','').astype(float)
+toclean['Number of people who accessed Private Emergency Accommodation'] = toclean['Number of people who accessed Private Emergency Accommodation'].str.replace(',','').astype(float)
+toclean['Number of people who accessed Supported Temporary Accommodation'] = toclean['Number of people who accessed Supported Temporary Accommodation'].str.replace(',','').astype(float)
+toclean['Number of Dependants in Families'] = toclean['Number of Dependants in Families'].str.replace(',','').astype(float)
+
+##Now, joining both files together, and ready to analyze
+
+hmls = pd.concat([toclean,clean])
+
